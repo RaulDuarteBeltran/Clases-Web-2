@@ -83,6 +83,13 @@ def update_heroes():
         print("Updated Spider-Boy's Teams:", hero_spider_boy.teams)
         print("Z-Force heroes:", team_z_force.heroes)
 
+        hero_spider_boy.teams.remove(team_z_force)
+        session.add(team_z_force)
+        session.commit()
+
+        print("Reverted Z-Force's heroes:", team_z_force.heroes)
+        print("Reverted Spider-Boy's teams:", hero_spider_boy.teams)
+
 
 def main():
     create_db_and_tables()
