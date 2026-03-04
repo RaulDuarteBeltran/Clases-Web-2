@@ -76,6 +76,13 @@ def update_heroes():
         ).one()
         team_z_force = session.exec(select(Team).where(Team.name == "Z-Force")).one()
 
+        team_z_force.heroes.append(hero_spider_boy)
+        session.add(team_z_force)
+        session.commit()
+
+        print("Updated Spider-Boy's Teams:", hero_spider_boy.teams)
+        print("Z-Force heroes:", team_z_force.heroes)
+
 
 def main():
     create_db_and_tables()
