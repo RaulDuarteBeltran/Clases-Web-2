@@ -1,4 +1,4 @@
-from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
+from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
 
 class HeroTeamLink(SQLModel, table=True):
@@ -69,9 +69,18 @@ def create_heroes():
         print("Spider-Boy Teams:", hero_spider_boy.teams)
 
 
+def update_heroes():
+    with Session(engine) as session:
+        hero_spider_boy = session.exec(
+            select(Hero).where(Hero.name == "Spider-Boy")
+        ).one()
+        team_z_force = session.exec(select(Team).where(Team.name == "Z-Force")).one()
+
+
 def main():
     create_db_and_tables()
     create_heroes()
+    update_heroes()
 
 
 if __name__ == "__main__":
