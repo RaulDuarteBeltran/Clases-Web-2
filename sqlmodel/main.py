@@ -62,6 +62,12 @@ def create_heroes():
             team=team_preventers, hero=hero_rusty_man
         )
 
+        session.add(deadpond_team_z_link)
+        session.add(deadpond_preventers_link)
+        session.add(spider_boy_preventers_link)
+        session.add(rusty_man_preventers_link)
+        session.commit()
+
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
