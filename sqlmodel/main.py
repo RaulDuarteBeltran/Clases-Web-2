@@ -10,6 +10,23 @@ class HeroTeamLink(SQLModel, table=True):
     hero: "Hero" = Relationship(back_populates="team_links")
 
 
+class Team(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    headquarters: str
+
+    hero_links: list[HeroTeamLink] = Relationship(back_populates="team")
+
+
+class Hero(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    secret_name: str
+    age: int | None = Field(default=None, index=True)
+
+    team_links: list[HeroTeamLink] = Relationship(back_populates="hero")
+
+
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
