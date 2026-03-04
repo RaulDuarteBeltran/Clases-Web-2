@@ -33,12 +33,43 @@ sqlite_url = f"sqlite:///{sqlite_file_name}"
 engine = create_engine(sqlite_url, echo=True)
 
 
+def create_heroes():
+    with Session(engine) as session:
+        team_preventers = Team(name="Preventers", headquarters="Sharp Tower")
+        team_z_force = Team(name="Z-Force", headquarters="Sister Margaret's Bar")
+
+        hero_deadpond = Hero(
+            name="Deadpond",
+            secret_name="Dive Wilson",
+        )
+        hero_rusty_man = Hero(
+            name="Rusty-Man",
+            secret_name="Tommy Sharp",
+            age=48,
+        )
+        hero_spider_boy = Hero(
+            name="Spider-Boy",
+            secret_name="Pedro Parqueador",
+        )
+        deadpond_team_z_link = HeroTeamLink(team=team_z_force, hero=hero_deadpond)
+        deadpond_preventers_link = HeroTeamLink(
+            team=team_preventers, hero=hero_deadpond, is_training=True
+        )
+        spider_boy_preventers_link = HeroTeamLink(
+            team=team_preventers, hero=hero_spider_boy, is_training=True
+        )
+        rusty_man_preventers_link = HeroTeamLink(
+            team=team_preventers, hero=hero_rusty_man
+        )
+
+
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
 def main():
     create_db_and_tables()
+    create_heroes()
 
 
 if __name__ == "__main__":
