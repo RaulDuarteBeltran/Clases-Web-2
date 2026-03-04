@@ -68,6 +68,12 @@ def create_heroes():
         session.add(rusty_man_preventers_link)
         session.commit()
 
+        for link in team_z_force.hero_links:
+            print("Z-Force hero:", link.hero, "is training:", link.is_training)
+
+        for link in team_preventers.hero_links:
+            print("Preventers hero:", link.hero, "is training:", link.is_training)
+
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
